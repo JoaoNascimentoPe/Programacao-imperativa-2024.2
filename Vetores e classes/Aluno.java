@@ -11,5 +11,9 @@ public class Aluno {
         this.matricula = matricula;
         this.mediaFinal = mediaFinal;
     }
+
+    public String toString() {
+        return "Nome - " + this.nome + " Matrícula - " + this.matricula + " Nota Final - " + this.mediaFinal;
+    }
 }
 

@@ -2,24 +2,34 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner ler = new Scanner(System.in);
-    public static final int QTD_ALUNO = 2;
+    public static final int QTD_ALUNO = 10;
     public static void main(String[] args) {
-        Aluno[] notasAlunos = new Aluno[QTD_ALUNO];
-        preencherNotas(notasAlunos);
+        Aluno[] alunos = new Aluno[QTD_ALUNO];
+        preencherNotas(alunos);
 
-        int qtdAprovados = verificarAprovados(notasAlunos);
-        int qtdReprovados = verificarReprovados(notasAlunos);
+        int qtdAprovados = verificarAprovados(alunos);
+        int qtdReprovados = verificarReprovados(alunos);
 
-        int[] aprovados = new int[qtdAprovados];
-        int[] reprovados = new int[qtdReprovados];
+        Aluno[] aprovados = new Aluno[qtdAprovados];
+        Aluno[] reprovados = new Aluno[qtdReprovados];
 
-        //imprimir(notasAlunos);
+        preencherVetores(alunos, aprovados, reprovados);
+
+        imprimir(alunos, aprovados, reprovados);
     }
 
-    public static void imprimir(Aluno[] alunos) {
+    public static void imprimir(Aluno[] alunos, Aluno[] aprovados, Aluno[] reprovados) {
         System.out.println("=============Listagem de Alunos=============");
         for (int i = 0; i < alunos.length; ++i) {
-            System.out.println("Aluno: " + alunos[i].nome + " matriculua: " + alunos[i].matricula + " nota: " + alunos[i].mediaFinal);
+            System.out.println(alunos[i].toString());
+        }
+        System.out.println("=============Listagem de Aprovados=============");
+        for (int i = 0; i < aprovados.length; i++) {
+            System.out.println(aprovados[i].toString());
+        }
+        System.out.println("=============Listagem de Reprovados=============");
+        for (int i = 0; i < reprovados.length; i++) {
+            System.out.println(reprovados[i].toString());
         }
     }
 
@@ -43,7 +53,7 @@ public class Main {
     public static int verificarAprovados(Aluno[] notas) {
         int qtdAprovados = 0;
         for (int i = 0; i < notas.length; i++) {
-            if (notas[i].mediaFinal > 5) {
+            if (notas[i].mediaFinal >= 5) {
                 qtdAprovados++;
             }
         };
@@ -60,12 +70,17 @@ public class Main {
         return qtdReprovados;
     }
 
-    public static void preencherVetores(Aluno[] notas, int[] aprovados, int[] reprovados) {
-        for (int i = 0; i < aprovados.length; i++){
-            for (int j = 0; j < notas.length; i++){
-                if (notas[i].mediaFinal > 5) {
-                    aprovados[j] = (int) notas[i].mediaFinal;
-                }
+    public static void preencherVetores(Aluno[] notas, Aluno[] aprovados, Aluno[] reprovados) {
+        int indexAprovados = 0;
+        int indexReprovados = 0;
+
+        for (int i = 0; i < notas.length; i++){
+            if (notas[i].mediaFinal >= 5) {
+                aprovados[indexAprovados] = notas[i];
+                indexAprovados++;
+            } else {
+                reprovados[indexReprovados] = notas[i];
+                indexReprovados++;
             }
         }
     }
